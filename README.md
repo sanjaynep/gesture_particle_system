@@ -15,9 +15,7 @@ A real-time interactive 3D particle system controlled by hand gestures using Thr
 - **Fullscreen Mode** - Immersive viewing experience
 - **Clean Minimal UI** - Modern dark theme interface
 
-## 🚀 Live Demo
 
-Visit: [https://yourusername.github.io/gesture_particle_system](https://yourusername.github.io/gesture_particle_system)
 
 ## 🎯 How to Use
 
