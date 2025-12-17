@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#ui-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #00ff00;
+    z-index: 1000;
+    min-width: 280px;
+    max-width: 320px;
+    backdrop-filter: blur(10px);
+}
+
+#ui-panel h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #00ff00;
+    text-align: center;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 10px;
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pattern-btn {
+    padding: 10px 15px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.pattern-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.pattern-btn.active {
+    background: #00ff00;
+    color: #000;
+}
+
+#colorPicker {
+    width: 100%;
+    height: 40px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #000;
+}
+
+#fullscreenBtn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+#fullscreenBtn:hover {
+    background: #00ff00;
+    color: #000;
+    transform: scale(1.05);
+}
+
+#gestureStatus {
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #00ff00;
+}
+
+#gestureStatus strong {
+    color: #00ff00;
+}
+
+#gestureText {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#instructions {
+    padding: 10px;
+    background: rgba(0, 100, 0, 0.3);
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.6;
+    border: 1px solid #00ff00;
+}
+
+#instructions strong {
+    color: #00ff00;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #ui-panel {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+    }
+}
+
+/* Fullscreen styling */
+#container:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+#container:-moz-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+#container:fullscreen {
+    width: 100%;
+    height: 100%;
+}

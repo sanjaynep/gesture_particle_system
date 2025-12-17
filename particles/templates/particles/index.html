@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture-Based 3D Particle System</title>
+    <link rel="stylesheet" href="{% static 'particles/css/style.css' %}">
+</head>
+<body>
+    <!-- Video element for hand tracking (hidden) -->
+    <video id="video" autoplay playsinline style="display: none;"></video>
+    
+    <!-- Canvas for hand tracking visualization (hidden) -->
+    <canvas id="output_canvas" style="display: none;"></canvas>
+    
+    <!-- Three.js container -->
+    <div id="container"></div>
+    
+    <!-- UI Panel -->
+    <div id="ui-panel">
+        <h2>Particle Controls</h2>
+        
+        <div class="control-group">
+            <label>Pattern:</label>
+            <div class="button-group">
+                <button class="pattern-btn active" data-pattern="sphere">Sphere</button>
+                <button class="pattern-btn" data-pattern="cube">Cube</button>
+                <button class="pattern-btn" data-pattern="random">Random Cloud</button>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label for="colorPicker">Particle Color:</label>
+            <input type="color" id="colorPicker" value="#00ff00">
+        </div>
+        
+        <div class="control-group">
+            <button id="fullscreenBtn">Toggle Fullscreen</button>
+        </div>
+        
+        <div class="control-group">
+            <div id="gestureStatus">
+                <strong>Gesture:</strong> <span id="gestureText">None</span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div id="instructions">
+                <strong>Instructions:</strong><br>
+                ✋ Open Hand - Expand particles<br>
+                ✊ Closed Fist - Contract particles
+            </div>
+        </div>
+    </div>
+    
+    <!-- Three.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.min.js"></script>
+    
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{% static 'particles/js/particles.js' %}"></script>
+</body>
+</html>
