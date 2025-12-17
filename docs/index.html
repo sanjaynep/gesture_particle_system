@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture Particle System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Main Canvas Container -->
+    <div id="canvas-container"></div>
+    
+    <!-- Camera Feed Preview -->
+    <div id="camera-preview">
+        <video id="camera-feed" autoplay playsinline></video>
+        <canvas id="hand-canvas"></canvas>
+        <div id="gesture-status">
+            <span id="gesture-icon">✋</span>
+            <span id="gesture-text">Detecting...</span>
+        </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div id="control-panel">
+        <div class="panel-header">
+            <h2>✨ Particle Controls</h2>
+            <button id="toggle-panel" class="icon-btn" title="Toggle Panel">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="panel-content">
+            <!-- Pattern Selection -->
+            <div class="control-section">
+                <h3>Pattern</h3>
+                <div class="pattern-grid">
+                    <button class="pattern-btn active" data-pattern="sphere" title="Sphere">
+                        <div class="pattern-preview sphere-preview"></div>
+                        <span>Sphere</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="cube" title="Cube">
+                        <div class="pattern-preview cube-preview"></div>
+                        <span>Cube</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="torus" title="Torus">
+                        <div class="pattern-preview torus-preview"></div>
+                        <span>Torus</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="spiral" title="Spiral">
+                        <div class="pattern-preview spiral-preview"></div>
+                        <span>Spiral</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="galaxy" title="Galaxy">
+                        <div class="pattern-preview galaxy-preview"></div>
+                        <span>Galaxy</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="heart" title="Heart">
+                        <div class="pattern-preview heart-preview"></div>
+                        <span>Heart</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="dna" title="DNA">
+                        <div class="pattern-preview dna-preview"></div>
+                        <span>DNA</span>
+                    </button>
+                    <button class="pattern-btn" data-pattern="wave" title="Wave">
+                        <div class="pattern-preview wave-preview"></div>
+                        <span>Wave</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Color Picker -->
+            <div class="control-section">
+                <h3>Color Theme</h3>
+                <div class="color-controls">
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="primary-color" value="#00d4ff" title="Primary Color">
+                        <label for="primary-color">Primary</label>
+                    </div>
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="secondary-color" value="#ff00d4" title="Secondary Color">
+                        <label for="secondary-color">Secondary</label>
+                    </div>
+                </div>
+                <div class="preset-colors">
+                    <button class="color-preset" data-primary="#00d4ff" data-secondary="#ff00d4" style="background: linear-gradient(135deg, #00d4ff, #ff00d4)" title="Cyber"></button>
+                    <button class="color-preset" data-primary="#00ff88" data-secondary="#00d4ff" style="background: linear-gradient(135deg, #00ff88, #00d4ff)" title="Emerald"></button>
+                    <button class="color-preset" data-primary="#ff6b00" data-secondary="#ff0066" style="background: linear-gradient(135deg, #ff6b00, #ff0066)" title="Sunset"></button>
+                    <button class="color-preset" data-primary="#ffffff" data-secondary="#aaaaaa" style="background: linear-gradient(135deg, #ffffff, #aaaaaa)" title="Monochrome"></button>
+                    <button class="color-preset" data-primary="#ffd700" data-secondary="#ff4500" style="background: linear-gradient(135deg, #ffd700, #ff4500)" title="Golden"></button>
+                    <button class="color-preset" data-primary="#9400d3" data-secondary="#00bfff" style="background: linear-gradient(135deg, #9400d3, #00bfff)" title="Aurora"></button>
+                </div>
+            </div>
+
+            <!-- Particle Settings -->
+            <div class="control-section">
+                <h3>Particle Settings</h3>
+                <div class="slider-control">
+                    <label for="particle-count">Count: <span id="particle-count-value">5000</span></label>
+                    <input type="range" id="particle-count" min="1000" max="20000" value="5000" step="500">
+                </div>
+                <div class="slider-control">
+                    <label for="particle-size">Size: <span id="particle-size-value">2</span></label>
+                    <input type="range" id="particle-size" min="0.5" max="6" value="2" step="0.25">
+                </div>
+                <div class="slider-control">
+                    <label for="animation-speed">Animation: <span id="animation-speed-value">1.0</span>x</label>
+                    <input type="range" id="animation-speed" min="0.1" max="3" value="1" step="0.1">
+                </div>
+            </div>
+
+            <!-- Gesture Settings -->
+            <div class="control-section">
+                <h3>Gesture Settings</h3>
+                <div class="slider-control">
+                    <label for="gesture-sensitivity">Sensitivity: <span id="gesture-sensitivity-value">1.0</span></label>
+                    <input type="range" id="gesture-sensitivity" min="0.5" max="2" value="1" step="0.1">
+                </div>
+                <div class="toggle-control">
+                    <label for="gesture-enabled">Enable Gestures</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="gesture-enabled" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="toggle-control">
+                    <label for="show-hand-tracking">Show Hand Tracking</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="show-hand-tracking" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Effects -->
+            <div class="control-section">
+                <h3>Effects</h3>
+                <div class="toggle-control">
+                    <label for="bloom-enabled">Bloom Effect</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="bloom-enabled" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="toggle-control">
+                    <label for="trails-enabled">Particle Trails</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="trails-enabled">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="slider-control">
+                    <label for="bloom-strength">Bloom Strength: <span id="bloom-strength-value">1.2</span></label>
+                    <input type="range" id="bloom-strength" min="0" max="3" value="1.2" step="0.1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div id="top-bar">
+        <div class="logo">
+            <span class="logo-icon">✨</span>
+            <span class="logo-text">Gesture Particles</span>
+        </div>
+        <div class="top-actions">
+            <button id="reset-btn" class="action-btn" title="Reset View">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                    <path d="M3 3v5h5"></path>
+                </svg>
+            </button>
+            <button id="screenshot-btn" class="action-btn" title="Screenshot">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+            </button>
+            <button id="fullscreen-btn" class="action-btn" title="Fullscreen">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <polyline points="9 21 3 21 3 15"></polyline>
+                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Instructions Overlay -->
+    <div id="instructions-overlay">
+        <div class="instructions-content">
+            <h2>👋 Welcome to Gesture Particles</h2>
+            <div class="instruction-steps">
+                <div class="step">
+                    <div class="step-icon">📷</div>
+                    <div class="step-text">
+                        <h4>Enable Camera</h4>
+                        <p>Allow camera access to detect hand gestures</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">✊</div>
+                    <div class="step-text">
+                        <h4>Close Hand</h4>
+                        <p>Contract and concentrate particles</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🖐️</div>
+                    <div class="step-text">
+                        <h4>Open Hand</h4>
+                        <p>Expand and disperse particles</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">👆</div>
+                    <div class="step-text">
+                        <h4>Move Hand</h4>
+                        <p>Control particle flow direction</p>
+                    </div>
+                </div>
+            </div>
+            <button id="start-btn" class="start-button">Start Experience</button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-text">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1640029074/camera_utils.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1620248257/drawing_utils.min.js"></script>
+    <script src="js/particleSystem.js"></script>
+    <script src="js/gestureDetector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
