@@ -285,7 +285,7 @@ function initUI() {
     // Color picker
     const colorPicker = document.getElementById('colorPicker');
     colorPicker.addEventListener('input', (e) => {
-        currentColor = parseInt(e.target.value.replace('#', '0x'));
+        currentColor = parseInt(e.target.value.replace('#', ''), 16);
         if (particleMaterial) {
             particleMaterial.color.setHex(currentColor);
         }
