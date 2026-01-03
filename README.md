@@ -61,12 +61,7 @@ gesture_particle_system/
 
 ## 🌐 Deployment
 
-### GitHub Pages (Static)
-1. Push to GitHub
-2. Go to **Settings → Pages**
-3. Source: **Deploy from branch**
-4. Branch: **main**, Folder: **/docs**
-5. Save and wait for deployment
+You can visit this link https://particle-gesture.onrender.com for experience this app which is deployed in render ,after clicking on this link give the camera access and you can enjoy particles gesture with hands live 
 
 ### Django Server (Local)
 ```bash
