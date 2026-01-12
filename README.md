@@ -62,6 +62,8 @@ gesture_particle_system/
 ## 🌐 Deployment
 
 You can visit this link https://particle-gesture.onrender.com for experience this app which is deployed in render ,after clicking on this link give the camera access and you can enjoy particles gesture with hands live 
+youcan experience it with different features like when we close hands it will srinks and when we open it will expands ,it also rotate in 3d with constant time 
+also .TO experience this please visist the upper ink given and wait server to restart as i deployed it in render 
 
 ### Django Server (Local)
 ```bash
