@@ -13,7 +13,7 @@ A real-time interactive 3D particle system controlled by hand gestures using Thr
 - **Adjustable Settings** - Particle count, size, animation speed, bloom
 - **Screenshot Export** - Save your creations as PNG images
 - **Fullscreen Mode** - Immersive viewing experience
-- **Clean Minimal UI** - Modern dark theme interface
+
 
 
 
